@@ -11,7 +11,7 @@ function ProductCard(props) {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>{product.title}</Card.Title>
+        <Card.Title>{product.name}</Card.Title>
         <Card.Title>{product.price}</Card.Title>
         {productQuantity > 0 ? (
           <>

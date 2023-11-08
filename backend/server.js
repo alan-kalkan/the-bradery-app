@@ -9,19 +9,39 @@ const cors = require("cors");
 const stripe = require("stripe")(
   "sk_test_51O997BBx4LpCTfMp93LnyqdiC18KCaQCGw6tU0CqZT3AcgOXjhBxPpnMYzG89YbbZbaBmgIxC42jTDaLLUytpryP006vvDL8jg"
 );
-
 const app = express();
+const productsRoutes = require("./routes/products");
+const bodyParser = require("body-parser");
+
+connectDB;
+
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Accept, Content-Type, Authorization, X-Requested-With"
+  );
 
+  next();
+});
+
+app.use("/products", productsRoutes);
+app.get("/", (req, res) => {
+  res.send("yoo");
+});
 app.post("/checkout", async (req, res) => {
   console.log(req.body);
   const items = req.body.items;
+  console.log(items);
   let lineItems = [];
   items.forEach((item) => {
     lineItems.push({
-      price: item.id,
+      price: item.stripeId,
       quantity: item.quantity,
     });
   });
@@ -40,4 +60,4 @@ app.post("/checkout", async (req, res) => {
   );
 });
 
-app.listen(4000, () => console.log("listening on port 3000"));
+app.listen(4000, () => console.log("listening on port 4000"));
