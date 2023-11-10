@@ -13,23 +13,36 @@ function NavbarComponent() {
   const handleShow = () => setShow(true);
 
   const checkout = async () => {
+    // Récupérer les stripeIds pour chaque produit dans le panier
+    const updatedItems = await Promise.all(
+      cart.items.map(async (item) => {
+        const productData = await getProductData(item.id);
+        return {
+          stripeId: productData.stripeId,
+          quantity: item.quantity,
+        };
+      })
+    );
+  
+    // Envoyer la requête avec les données mises à jour
     await fetch("http://localhost:4000/checkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart.items }),
+      body: JSON.stringify({ items: updatedItems }),
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        if (response.url) {
-          window.location.assign(response.url);
-        }
-      });
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      if (response.url) {
+        window.location.assign(response.url);
+      }
+    });
   };
   
+
   const productsCount = cart.items.reduce(
     (sum, product) => sum + product.quantity,
     0
@@ -56,9 +69,10 @@ function NavbarComponent() {
                   key={index}
                   id={currentProduct.id}
                   quantity={currentProduct.quantity}
+                  
                 />
               ))}
-              <h1>Total: {cart.getTotalCost()}</h1>
+              <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
               <Button variant="success" onClick={checkout}>
                 Purchase items!
               </Button>

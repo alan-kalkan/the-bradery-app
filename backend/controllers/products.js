@@ -13,7 +13,7 @@ exports.getAllProducts = (req, res) => {
 
 exports.getProductStripeId = (req, res) => {
   const sql = "SELECT stripeId FROM products";
-  connection.query(sql,(err, results) => {
+  connection.query(sql, (err, results) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {

@@ -24,7 +24,9 @@ function ProductCard(props) {
                 <Button
                   sm="6"
                   className="mx-2"
-                  onClick={() => cart.addOneToCart(product.id)}
+                  onClick={() =>
+                    cart.addOneToCart(product.id, product.stripeId)
+                  }
                 >
                   +
                 </Button>

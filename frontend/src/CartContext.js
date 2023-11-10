@@ -21,11 +21,10 @@ export function CartProvider({ children }) {
     if (quantity === undefined) {
       return 0;
     }
-    console.log(quantity);
     return quantity;
   }
 
-  function addOneToCart(id) {
+  function addOneToCart(id, stripeId) {
     const quantity = getProductQuantity(id);
     if (quantity === 0) {
       setCartProducts([
@@ -33,8 +32,10 @@ export function CartProvider({ children }) {
         {
           id: id,
           quantity: 1,
+          stripeId: stripeId,
         },
       ]);
+      console.log(cartProducts);
     } else {
       setCartProducts(
         cartProducts.map((product) =>

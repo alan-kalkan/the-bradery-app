@@ -8,17 +8,16 @@ function Store() {
   useEffect(() => {
     const fetchMyData = async () => {
       try {
-        const result = await fetchData('products'); // Exemple d'appel à l'API
+        const result = await fetchData("products"); // Exemple d'appel à l'API
         setProductData(result);
       } catch (error) {
         // Gérer les erreurs, par exemple :
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     };
 
     fetchMyData();
   }, []);
-  console.log(productData);
   return (
     <>
       <h1 align="center" className="p-3">

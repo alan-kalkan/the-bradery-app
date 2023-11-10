@@ -1,8 +1,6 @@
-//sk_test_51O997BBx4LpCTfMp93LnyqdiC18KCaQCGw6tU0CqZT3AcgOXjhBxPpnMYzG89YbbZbaBmgIxC42jTDaLLUytpryP006vvDL8jg
-//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
-// coffee : price_1O99D3Bx4LpCTfMp0VRdxLKJ
-// camera : price_1O99E0Bx4LpCTfMpajtTpc6N
 // sunglasses : price_1O99DiBx4LpCTfMpHyxXK9ZT
+// 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
+// clé test : sk_test_51O997BBx4LpCTfMp93LnyqdiC18KCaQCGw6tU0CqZT3AcgOXjhBxPpnMYzG89YbbZbaBmgIxC42jTDaLLUytpryP006vvDL8jg
 const connectDB = require("./db-config");
 const express = require("express");
 const cors = require("cors");
@@ -31,13 +29,11 @@ app.use(function (req, res, next) {
 });
 
 app.use("/products", productsRoutes);
-app.get("/", (req, res) => {
-  res.send("yoo");
-});
+
 app.post("/checkout", async (req, res) => {
-  console.log(req.body);
+  console.log(req.body.json);
   const items = req.body.items;
-  console.log(items);
+
   let lineItems = [];
   items.forEach((item) => {
     lineItems.push({
