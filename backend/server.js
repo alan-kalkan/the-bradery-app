@@ -33,7 +33,7 @@ app.use("/products", productsRoutes);
 app.post("/checkout", async (req, res) => {
   console.log(req.body.json);
   const items = req.body.items;
-
+  
   let lineItems = [];
   items.forEach((item) => {
     lineItems.push({
