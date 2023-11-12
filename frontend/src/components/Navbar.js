@@ -13,7 +13,6 @@ function NavbarComponent() {
   const handleShow = () => setShow(true);
 
   const checkout = async () => {
-    // Récupérer les stripeIds pour chaque produit dans le panier
     const updatedItems = await Promise.all(
       cart.items.map(async (item) => {
         const productData = await getProductData(item.id);
@@ -24,7 +23,6 @@ function NavbarComponent() {
       })
     );
 
-    // Envoyer la requête avec les données mises à jour
     await fetch("http://localhost:4000/checkout", {
       method: "POST",
       headers: {
