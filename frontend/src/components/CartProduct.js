@@ -10,7 +10,7 @@ function CartProduct(props) {
 
   const id = props.id;
   const quantity = props.quantity;
-
+  
   useEffect(() => {
     getProductDetails(id);
   }, [id]);
@@ -28,8 +28,8 @@ function CartProduct(props) {
     <>
       {productData && (
         <>
-          <h3>{productData.title}</h3>
-          <p>{quantity} total</p>
+          <h3>{productData.name}</h3>
+          <p>Quantité : {quantity}</p>
           <p>{(quantity * productData.price).toFixed(2)} €</p>
           <Button size="sm" onClick={() => cart.deleteFromCart(id)}>
             Supprimer

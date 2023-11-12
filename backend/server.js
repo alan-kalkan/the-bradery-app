@@ -11,7 +11,6 @@ const stripe = require("stripe")(
 const app = express();
 const productsRoutes = require("./routes/products");
 const ordersRoutes = require("./routes/orders");
-const stripeRoute = require("./routes/stripeHook");
 const bodyParser = require("body-parser");
 const router = require("./routes/products");
 
@@ -34,16 +33,9 @@ app.use(function (req, res, next) {
 
 app.use("/products", productsRoutes);
 app.use("/orders", ordersRoutes);
-app.use("/stripe", stripeRoute);
 app.post("/checkout", async (req, res) => {
   console.log(req.body.json);
-
   const items = req.body.items;
-  const order = await stripe.customers.create({
-    metadata: {
-      cart: JSON.stringify(req.body.items),
-    },
-  });
 
   let lineItems = [];
   items.forEach((item) => {
@@ -54,15 +46,8 @@ app.post("/checkout", async (req, res) => {
   });
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
     line_items: lineItems,
-    payment_intent_data: {
-      setup_future_usage: "off_session",
-    },
     mode: "payment",
-    metadata: {
-      order_id: order.id,
-    },
     success_url: "http://localhost:3000/success",
     cancel_url: "http://localhost:3000/cancel",
   });
