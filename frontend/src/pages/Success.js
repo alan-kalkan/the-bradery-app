@@ -1,9 +1,16 @@
-import React from 'react'
+// Dans votre composant de page de succès (ou de confirmation)
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../CartContext";
 
-function Success() {
+const Success = () => {
+  const cartItems = useContext(CartContext);
+
   return (
-    <div>Success</div>
-  )
-}
+    <>
+      <h1>Commande confirmée !</h1>
+      {console.log(cartItems.items)}
+    </>
+  );
+};
 
-export default Success
+export default Success;

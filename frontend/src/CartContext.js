@@ -16,7 +16,7 @@ export function CartProvider({ children }) {
   function getProductQuantity(id) {
     const quantity = cartProducts.find(
       (product) => product.id === id
-    )?.quantity; // ? = Gérer les cas où id serait undefined
+    )?.quantity;
 
     if (quantity === undefined) {
       return 0;
@@ -35,7 +35,6 @@ export function CartProvider({ children }) {
           stripeId: stripeId,
         },
       ]);
-      console.log(cartProducts);
     } else {
       setCartProducts(
         cartProducts.map((product) =>
@@ -88,6 +87,7 @@ export function CartProvider({ children }) {
     deleteFromCart,
     getTotalCost,
   };
+  console.log(cartProducts);
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );

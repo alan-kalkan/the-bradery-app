@@ -18,7 +18,7 @@ function ProductCard(props) {
             <Form as={Row}>
               <Form.Label column="true" sm="6">
                 {" "}
-                In Cart: {productQuantity}
+                Dans le panier: {productQuantity}
               </Form.Label>
               <Col sm="6">
                 <Button
@@ -44,7 +44,7 @@ function ProductCard(props) {
               className="my-2"
               onClick={() => cart.deleteFromCart(product.id)}
             >
-              Remove from cart
+              Supprimer du panier
             </Button>
           </>
         ) : (
@@ -52,7 +52,7 @@ function ProductCard(props) {
             variant="primary"
             onClick={() => cart.addOneToCart(product.id)}
           >
-            Add to cart
+            Ajouter au panier
           </Button>
         )}
       </Card.Body>

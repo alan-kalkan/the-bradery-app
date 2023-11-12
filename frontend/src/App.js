@@ -9,6 +9,7 @@ import Cancel from "./pages/Cancel";
 import CartProvider from "./CartContext";
 
 function App() {
+
   return (
     <CartProvider>
       <Container>

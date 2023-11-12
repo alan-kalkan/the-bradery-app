@@ -21,7 +21,7 @@ function Store() {
   return (
     <>
       <h1 align="center" className="p-3">
-        Store
+        E-Commerce
       </h1>
       <Row xs={1} md={3} className="g-4">
         {productData ? (
@@ -31,7 +31,7 @@ function Store() {
             </Col>
           ))
         ) : (
-          <p>Loading . . .</p>
+          <p> Chargement . . .</p>
         )}
       </Row>
     </>

@@ -32,7 +32,7 @@ function CartProduct(props) {
           <p>{quantity} total</p>
           <p>{(quantity * productData.price).toFixed(2)} €</p>
           <Button size="sm" onClick={() => cart.deleteFromCart(id)}>
-            Remove
+            Supprimer
           </Button>
           <hr></hr>
         </>

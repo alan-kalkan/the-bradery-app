@@ -23,7 +23,7 @@ function NavbarComponent() {
         };
       })
     );
-  
+
     // Envoyer la requête avec les données mises à jour
     await fetch("http://localhost:4000/checkout", {
       method: "POST",
@@ -32,16 +32,15 @@ function NavbarComponent() {
       },
       body: JSON.stringify({ items: updatedItems }),
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      if (response.url) {
-        window.location.assign(response.url);
-      }
-    });
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url);
+        }
+      });
   };
-  
 
   const productsCount = cart.items.reduce(
     (sum, product) => sum + product.quantity,
@@ -50,35 +49,39 @@ function NavbarComponent() {
   return (
     <>
       <Navbar expand="sm">
-        <Navbar.Brand href="/">Ecommerce Store</Navbar.Brand>
+        <Navbar.Brand href="/">E-commerce</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Button onClick={handleShow}>Cart ({productsCount} items)</Button>
+          <Button onClick={handleShow}>
+            Panier :
+            {productsCount > 1
+              ? `  ${productsCount} articles`
+              : `  ${productsCount} article`}
+          </Button>
         </Navbar.Collapse>
       </Navbar>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Shopping Cart</Modal.Title>
+          <Modal.Title>Panier</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {productsCount > 0 ? (
             <>
-              <p>Items in your cart :</p>
+              <p>Articles dans le panier</p>
               {cart.items.map((currentProduct, index) => (
                 <CartProduct
                   key={index}
                   id={currentProduct.id}
                   quantity={currentProduct.quantity}
-                  
                 />
               ))}
               <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
               <Button variant="success" onClick={checkout}>
-                Purchase items!
+                Passer commande!
               </Button>
             </>
           ) : (
-            <h1>No items in your cart</h1>
+            <h1>Aucun article dans votre panier !</h1>
           )}
         </Modal.Body>
       </Modal>
